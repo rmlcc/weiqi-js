@@ -1350,7 +1350,11 @@ besogo.makeControlPanel = function(container, editor) {
 
         coordStyleButton = document.createElement('button');
         coordStyleButton.onclick = function() {
-            editor.toggleCoordStyle(); 
+            editor.toggleCoordStyle();
+	    var a = editor.getCurrent();
+	    editor.prevNode(-1);
+	    updataComment();
+	    editor.setCurrent(a);
         };
         coordStyleButton.title = 'Toggle coordinates';
         container.appendChild(coordStyleButton);
@@ -2123,11 +2127,7 @@ besogo.makeFilePanel = function(container, editor) {
                 return;
             }
             besogo.loadSgf(sgf, editor);
-	    var chess = [];
-	    for(var i=1;i<=361;i++){
-		chess[i] = 0;
-	    }
-	    initComment(chess);
+	    initComment();
         };
         if (confirm("Load '" + file.name + "'?\n" + WARNING)) {
             reader.readAsText(file); 
@@ -3624,7 +3624,8 @@ besogo.makeTreePanel = function(container, editor) {
             fill: besogo.TURQ
         });
         element.onclick = function() {
-            editor.setCurrent(node);
+	    if(disable_tree_status == false)
+		editor.setCurrent(node);
         };
 
         node.navTreeMarker = element; 
