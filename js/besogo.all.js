@@ -3624,8 +3624,19 @@ besogo.makeTreePanel = function(container, editor) {
             fill: besogo.TURQ
         });
         element.onclick = function() {
-	    if(disable_tree_status == false)
+	    if(disable_tree_status == false){
+		if(client == 'MOBILE'){
+		    var a = besogo.editor.getCurrent().moveNumber;
+		    var b = besogo.editor.getCurrent()
+		    while(b.children.length){
+			b = b.children[0];
+			a++;
+		    }
+		    document.body.childNodes[1].childNodes[1].childNodes[0].childNodes[15].max = a;
+		    document.body.childNodes[1].childNodes[1].childNodes[0].childNodes[15].value = node.moveNumber;
+		}
 		editor.setCurrent(node);
+	    }
         };
 
         node.navTreeMarker = element; 

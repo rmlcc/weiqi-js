@@ -315,6 +315,10 @@ function sendMsg(x,y){
     var color = besogo.editor.getCurrent().getStone(x,y);
     try{
 	var str = "第" + besogo.editor.getCurrent().navTreeIcon.childNodes[1].innerHTML + "手，";
+	if(client == 'MOBILE'){
+	    document.body.childNodes[1].childNodes[1].childNodes[0].childNodes[15].max = parseInt(besogo.editor.getCurrent().navTreeIcon.childNodes[1].innerHTML);
+	    document.body.childNodes[1].childNodes[1].childNodes[0].childNodes[15].value = parseInt(besogo.editor.getCurrent().navTreeIcon.childNodes[1].innerHTML);
+	}
     }catch(err){
 	console.log(err);
 	return;
@@ -346,7 +350,7 @@ function sendMsg(x,y){
     getGas(x+1,y,color,a);
     getGas(x,y-1,color,a);
     getGas(x,y+1,color,a);
-    str += "气数" + gas.length + '\r\n';
+    str += "气数" + gas.length + ';';
     sendComment(str);
 }
 

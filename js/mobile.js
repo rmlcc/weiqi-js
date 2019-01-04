@@ -11,6 +11,7 @@ function mobile_init(){
     document.body.childNodes[1].childNodes[1].childNodes[0].append(makeShowTreeButton());
     document.body.childNodes[1].childNodes[1].childNodes[0].append(makeSpeedRange());
     document.body.childNodes[1].childNodes[1].childNodes[0].append(makeSpeedLabel());
+    document.body.childNodes[1].childNodes[1].childNodes[0].append(makeChangeRange());
     document.body.childNodes[1].childNodes[1].childNodes[0].childNodes[13];
 
     document.body.childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[0].hidden = true;
@@ -82,4 +83,24 @@ function makeSpeedLabel() {
     label.innerText = '5';
     label.title = 'Label speed';
     return label;
+}
+
+function makeChangeRange() {
+    var range = document.createElement('input');
+    range.type = 'range';
+    range.value = 0;
+    range.title = 'Change speed';
+    range.min = 0;
+    range.max = 0;
+    
+    range.onchange = function() {
+	var a = besogo.editor.getCurrent().moveNumber;
+	if(a > range.value){
+	    besogo.editor.prevNode(a - range.value);
+	}
+	else if(a < range.value){
+	    besogo.editor.nextNode(range.value - a);
+	}
+    };
+    return range;
 }
